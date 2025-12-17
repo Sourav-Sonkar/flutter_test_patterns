@@ -1,3 +1,3 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+* Initial release including interaction contracts, state matrix testing, and golden variant helpers.

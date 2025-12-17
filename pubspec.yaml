@@ -1,8 +1,8 @@
 name: flutter_test_patterns
 description: "A helper package providing a toolbox of widget testing patterns."
 version: 0.0.1
-homepage:
-
+repository: https://github.com/Sourav-Sonkar/flutter_test_patterns
+issue_tracker: https://github.com/Sourav-Sonkar/flutter_test_patterns/issues
 environment:
   sdk: ^3.9.2
   flutter: ">=3.35.7"
@@ -10,10 +10,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-dev_dependencies:
   flutter_test:
     sdk: flutter
+
+dev_dependencies:
   flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
