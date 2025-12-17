@@ -1,5 +1,3 @@
-library golden_variants;
+library flutter_test_patterns;
 
-export 'src/variant_runner.dart';
-// We intentionally do not export golden_wrapper.dart or config.dart 
-// to keep the API surface minimal.
+export 'src/golden/variant_runner.dart';

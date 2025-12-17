@@ -1,60 +1,52 @@
-# golden_variants
+# Flutter Test Patterns
 
-A simple, opinionated helper for Flutter golden tests, optimized for design system widgets with multiple visual variants.
+A toolbox of common, senior-level widget testing patterns for Flutter.
 
-## Problem Statement
+This package provides **opt-in** helpers to reduce boilerplate in your tests. It is **NOT** a testing framework. It does not impose a specific architecture or base class.
 
-Writing golden tests for widgets with many states (primary, disabled, error, etc.) often leads to:
-- **Boilerplate**: Manually pumping widgets, settling, and matching.
-- **Inconsistency**: Different screen sizes, wrappers, or backgrounds across tests.
-- **Flakiness**: Leakage of state between variant pumps.
+## Philosophy
 
-## Solution
+- **Explicit is better than implicit.** Helpers should not hide what they are doing.
+- **Composition over inheritance.** No `BaseTest` classes.
+- **Isolation.** State should not leak between tests or variants.
 
-`golden_variants` provides a single function that:
-1. Pumps each variant in isolation.
-2. Wraps it with standard defaults (MaterialApp, Scaffold, white background).
-3. Generates deterministic, named golden files.
+## Patterns
 
-## Usage
+| Pattern | Purpose |
+| :--- | :--- |
+| [**Golden Variants**](doc/patterns/golden_variants.md) | Generate multiple visual variants (primary, hover, disabled) in a single test block with deterministic output. |
+| [**Interaction Contracts**](doc/patterns/interaction_contracts.md) | Define and enforce reusable behavioral contracts (e.g., "tappable", "validates on blur"). |
+| [**State Matrix**](doc/patterns/state_matrix.md) | Ensure a widget behaves correctly across all defined states (loading, error, data, empty). |
 
-```dart
-import 'package:flutter_test/flutter_test.dart';
-import 'package:golden_variants/golden_variants.dart';
+## Installation
 
-void main() {
-  testWidgets('Button variants', (tester) async {
-    await goldenVariants(
-      tester,
-      'button',
-      variants: {
-        'primary': () => Button.primary(),
-        'disabled': () => Button.primary(onPressed: null),
-        'icon': () => Button.icon(),
-      },
-      // Optional overrides
-      surfaceSize: Size(400, 100), 
-    );
-  });
-}
+```yaml
+dev_dependencies:
+  flutter_test_patterns:
+    path: . # Local path or git url
 ```
 
-## Naming Convention
+## Quick Example (Golden Variants)
 
-Goldens are generated at:
-`goldens/<name>/<variant>.png`
+```dart
+testWidgets('Button variants', (tester) async {
+  await goldenVariants(
+    tester,
+    'button',
+    variants: {
+      'primary': () => Button.primary(),
+      'disabled': () => Button.disabled(),
+    },
+  );
+});
+```
 
-For the example above:
-- `goldens/button/primary.png`
-- `goldens/button/disabled.png`
-- `goldens/button/icon.png`
+See [doc/patterns/](doc/patterns/) for detailed guides on each pattern.
 
-## Dependencies
+## Contributing
 
-Only `flutter_test`. No other external dependencies.
+Contributions are welcome! Please feel free to open an issue or submit a PR.
 
-## When NOT to use this package
+## License
 
-- If you need complex scenario orchestration (integration tests).
-- If you need pixel matching tolerances (defaults to exact match, though `flutter_test` config applies).
-- If you rely heavily on Animations (this package pumps and settles, but doesn't offer fine-grained animation control).
+MIT

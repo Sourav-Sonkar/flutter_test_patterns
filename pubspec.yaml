@@ -1,5 +1,5 @@
-name: golden_variants
-description: "A helper for creating golden tests for multiple widget variants."
+name: flutter_test_patterns
+description: "A helper package providing a toolbox of widget testing patterns."
 version: 0.0.1
 homepage:
 

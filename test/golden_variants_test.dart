@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:golden_variants/golden_variants.dart';
+import 'package:flutter_test_patterns/golden_variants.dart';
 
 // reliable custom font loading in tests is tricky without setup, so we used standard widgets
 class DemoButton extends StatelessWidget {
