@@ -22,12 +22,9 @@ Future<void> testInteractionContract(
     await tester.pumpWidget(build());
     await tester.pumpAndSettle();
 
-    await test(
-        'Contract: ${contract.description}',
-        () async {
-            await contract.verify(tester);
-        }
-    );
+    // Verify contract
+    debugPrint('Verifying Contract: ${contract.description}');
+    await contract.verify(tester);
     
     // Cleanup
     await tester.pumpWidget(const SizedBox.shrink());
