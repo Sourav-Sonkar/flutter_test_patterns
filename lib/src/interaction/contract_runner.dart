@@ -25,7 +25,7 @@ Future<void> testInteractionContract(
     // Verify contract
     debugPrint('Verifying Contract: ${contract.description}');
     await contract.verify(tester);
-    
+
     // Cleanup
     await tester.pumpWidget(const SizedBox.shrink());
   }

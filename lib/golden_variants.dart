@@ -1,3 +1,3 @@
-library flutter_test_patterns;
+library;
 
 export 'src/golden/variant_runner.dart';

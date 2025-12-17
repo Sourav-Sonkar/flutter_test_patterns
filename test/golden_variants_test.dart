@@ -9,11 +9,11 @@ class DemoButton extends StatelessWidget {
   final VoidCallback? onPressed;
 
   const DemoButton({
-    Key? key,
+    super.key,
     required this.label,
     required this.color,
     this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,20 +32,20 @@ void main() {
       'demo_button',
       variants: {
         'primary': () => const DemoButton(
-              label: 'Primary',
-              color: Colors.blue,
-              onPressed: _dummyAction,
-            ),
+          label: 'Primary',
+          color: Colors.blue,
+          onPressed: _dummyAction,
+        ),
         'disabled': () => const DemoButton(
-              label: 'Disabled',
-              color: Colors.grey,
-              onPressed: null,
-            ),
+          label: 'Disabled',
+          color: Colors.grey,
+          onPressed: null,
+        ),
         'danger': () => const DemoButton(
-              label: 'Danger',
-              color: Colors.red,
-              onPressed: _dummyAction,
-            ),
+          label: 'Danger',
+          color: Colors.red,
+          onPressed: _dummyAction,
+        ),
       },
       surfaceSize: const Size(200, 100),
     );

@@ -1,4 +1,3 @@
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -22,10 +21,10 @@ Future<void> goldenVariants(
     // Pump the widget wrapped in our standard wrapper
     await tester.pumpWidget(
       GoldenWrapper(
-        child: widget,
         surfaceSize: surfaceSize,
         backgroundColor: backgroundColor,
         wrapWithMaterialApp: wrapWithMaterialApp,
+        child: widget,
       ),
     );
 

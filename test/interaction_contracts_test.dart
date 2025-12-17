@@ -8,20 +8,24 @@ class TappableWidget extends StatelessWidget {
   final VoidCallback onTap;
   final bool enabled;
 
-  const TappableWidget({Key? key, required this.onTap, this.enabled = true}) : super(key: key);
+  const TappableWidget({super.key, required this.onTap, this.enabled = true});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: enabled ? onTap : null,
-      child: Container(color: enabled ? Colors.blue : Colors.grey, width: 50, height: 50),
+      child: Container(
+        color: enabled ? Colors.blue : Colors.grey,
+        width: 50,
+        height: 50,
+      ),
     );
   }
 }
 
 class FiresOnTapOnce extends InteractionContract {
   final VoidCallback mockCallback;
-  
+
   const FiresOnTapOnce(this.mockCallback) : super('Fires onTap exactly once');
 
   @override
@@ -34,33 +38,29 @@ class FiresOnTapOnce extends InteractionContract {
 void main() {
   testWidgets('Interaction Contracts Demo', (tester) async {
     int tapCount = 0;
-    
+
     await testInteractionContract(
       tester,
-      build: () => MaterialApp(
-        home: TappableWidget(onTap: () => tapCount++),
-      ),
+      build: () => MaterialApp(home: TappableWidget(onTap: () => tapCount++)),
       contracts: [
         // Ad-hoc contract for this test
-        _FiresTap(
-             () {
-                expect(tapCount, 1);
-                tapCount = 0; // Reset
-             },
-        ),
+        _FiresTap(() {
+          expect(tapCount, 1);
+          tapCount = 0; // Reset
+        }),
       ],
     );
   });
 }
 
 class _FiresTap extends InteractionContract {
-   final VoidCallback verifyCallback;
-   
-   _FiresTap(this.verifyCallback) : super('Increments tap count');
-   
-   @override
-   Future<void> verify(WidgetTester tester) async {
-     await tester.tap(find.byType(TappableWidget));
-     verifyCallback();
-   }
+  final VoidCallback verifyCallback;
+
+  _FiresTap(this.verifyCallback) : super('Increments tap count');
+
+  @override
+  Future<void> verify(WidgetTester tester) async {
+    await tester.tap(find.byType(TappableWidget));
+    verifyCallback();
+  }
 }

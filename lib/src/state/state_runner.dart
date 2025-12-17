@@ -19,14 +19,14 @@ Future<void> testStateMatrix(
 
     // Pump widget, potentially wrapped for context (like Theme)
     await tester.pumpWidget(
-       GoldenWrapper(
-        child: widget,
+      GoldenWrapper(
         wrapWithMaterialApp: wrapWithMaterialApp,
         // Default small size if not specified, implies component testing
-        surfaceSize: const Size(800, 600), 
+        surfaceSize: const Size(800, 600),
+        child: widget,
       ),
     );
-    
+
     await tester.pumpAndSettle();
 
     // Run verification

@@ -7,23 +7,19 @@ class GoldenWrapper extends StatelessWidget {
   final bool wrapWithMaterialApp;
 
   const GoldenWrapper({
-    Key? key,
+    super.key,
     required this.child,
     this.surfaceSize,
     this.backgroundColor,
     this.wrapWithMaterialApp = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     // Default size if not provided
     final size = surfaceSize ?? const Size(800, 600);
 
-    Widget content = Center(
-      child: RepaintBoundary(
-        child: child,
-      ),
-    );
+    Widget content = Center(child: RepaintBoundary(child: child));
 
     if (wrapWithMaterialApp) {
       content = MaterialApp(
@@ -47,10 +43,7 @@ class GoldenWrapper extends StatelessWidget {
 
     // Force layout size
     return Center(
-      child: SizedBox.fromSize(
-        size: size,
-        child: content,
-      ),
+      child: SizedBox.fromSize(size: size, child: content),
     );
   }
 }

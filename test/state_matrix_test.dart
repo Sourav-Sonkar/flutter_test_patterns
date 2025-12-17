@@ -12,11 +12,14 @@ void main() {
         'long': () => const Text('Long text content that might overflow'),
       },
       verify: (stateName) {
-         if (stateName == 'short') {
-            expect(find.text('Short'), findsOneWidget);
-         } else {
-            expect(find.text('Long text content that might overflow'), findsOneWidget);
-         }
+        if (stateName == 'short') {
+          expect(find.text('Short'), findsOneWidget);
+        } else {
+          expect(
+            find.text('Long text content that might overflow'),
+            findsOneWidget,
+          );
+        }
       },
     );
   });

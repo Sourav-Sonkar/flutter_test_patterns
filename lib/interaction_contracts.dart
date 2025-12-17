@@ -1,3 +1,3 @@
-library flutter_test_patterns;
+library;
 
 export 'src/interaction/contract_runner.dart';
