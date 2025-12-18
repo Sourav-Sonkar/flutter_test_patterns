@@ -1,3 +1,7 @@
+## 0.1.0
+* Reduced Dart SDK constraint to `^3.5.0` and Flutter SDK constraint to `>=3.24.0`.
+* Fixed minor lint issue in `flutter_test_patterns.dart`.
+
 ## 0.0.2
 
 * Fixed compilation error in `contract_runner.dart`.
