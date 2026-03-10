@@ -1,0 +1,37 @@
+resources:
+  - name: golden_variants_guide
+    title: "Golden Variants Testing Guide"
+    description: "Complete guide to using golden variants for visual testing in Flutter"
+    path: ../../doc/patterns/golden_variants.md
+    visibility: public
+  
+  - name: interaction_contracts_guide
+    title: "Interaction Contracts Guide"
+    description: "Learn how to define and enforce reusable behavioral contracts in tests"
+    path: ../../doc/patterns/interaction_contracts.md
+    visibility: public
+  
+  - name: state_matrix_guide
+    title: "State Matrix Testing Guide"
+    description: "Comprehensive guide to state matrix testing for widget behavior validation"
+    path: ../../doc/patterns/state_matrix.md
+    visibility: public
+
+prompts:
+  - name: setup_golden_test
+    title: "Setup Golden Variants Test"
+    description: "Creates a golden variants test for a widget with common variants"
+    path: prompts/setup_golden_test.md
+    visibility: public
+  
+  - name: create_interaction_contract
+    title: "Create Interaction Contract"
+    description: "Helps create an interaction contract for a widget's behavior"
+    path: prompts/create_interaction_contract.md
+    visibility: public
+  
+  - name: setup_state_matrix
+    title: "Setup State Matrix Test"
+    description: "Creates a state matrix test to verify widget behavior across different states"
+    path: prompts/setup_state_matrix.md
+    visibility: public
