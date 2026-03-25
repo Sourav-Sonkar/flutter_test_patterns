@@ -1,5 +1,14 @@
 # Flutter Test Patterns
 
+[![Pub Version](https://img.shields.io/pub/v/flutter_test_patterns)](https://pub.dev/packages/flutter_test_patterns)
+[![Agent Skill](https://img.shields.io/badge/Agent%20Skill-SKILL.md-blue)](https://skillsmp.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Sourav-Sonkar/flutter_test_patterns/pulls)
+[![Flutter](https://img.shields.io/badge/Flutter-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
+[![Dart](https://img.shields.io/badge/Dart-0175C2?logo=dart&logoColor=white)](https://dart.dev)
+[![Testing](https://img.shields.io/badge/Testing-Widget%20Tests-02569B)](https://flutter.dev/testing)
+[![Golden Tests](https://img.shields.io/badge/Golden-Tests-FFD700)](https://flutter.dev/testing#golden-tests)
+
 A toolbox of common, senior-level widget testing patterns for Flutter.
 
 This package provides **opt-in** helpers to reduce boilerplate in your tests. It is **NOT** a testing framework. It does not impose a specific architecture or base class.
@@ -46,6 +55,16 @@ See [doc/patterns/](doc/patterns/) for detailed guides on each pattern.
 ## Contributing
 
 Contributions are welcome! Please feel free to open an issue or submit a PR.
+
+## AI Agent Skill
+
+Use `flutter_test_patterns` directly inside Claude Code, Cursor, GitHub Copilot, Windsurf, and 39+ AI agents:
+
+```bash
+npx skills add Sourav-Sonkar/flutter_test_patterns
+```
+
+Then just ask your AI: *"Write widget tests for this Flutter component"*
 
 ## License
 

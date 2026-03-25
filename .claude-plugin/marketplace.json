@@ -1,0 +1,20 @@
+{
+  "metadata": {
+    "pluginRoot": ".",
+    "name": "flutter-test-patterns",
+    "description": "Senior-level Flutter widget testing patterns — Golden Variants, Interaction Contracts, and State Matrix",
+    "author": "conalyz",
+    "version": "latest",
+    "homepage": "https://pub.dev/packages/flutter_test_patterns",
+    "repository": "https://github.com/Sourav-Sonkar/flutter_test_patterns",
+    "license": "MIT",
+    "keywords": ["flutter", "testing", "widget-test", "golden", "dart", "tdd"]
+  },
+  "plugins": [
+    {
+      "name": "flutter-test-patterns",
+      "source": ".",
+      "skills": ["./flutter-test-patterns"]
+    }
+  ]
+}
