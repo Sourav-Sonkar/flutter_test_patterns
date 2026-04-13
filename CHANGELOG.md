@@ -1,3 +1,12 @@
+## 1.1.0
+
+* **Major README rewrite** - Repositioned as pattern-based testing system
+* Added problem-solution narrative with before/after code examples
+* Updated package description to match new positioning
+* De-emphasized AI integration to secondary feature
+* Added "Who is this for" and "Benefits" sections
+* Improved pub.dev discoverability and scannability
+
 ## 1.0.0
 
 * **Stable release** - Ready for production use
