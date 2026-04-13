@@ -1,3 +1,7 @@
+## 1.1.1
+
+* Add CHANGELOG entry for 1.1.0
+
 ## 1.1.0
 
 * **Major README rewrite** - Repositioned as pattern-based testing system
