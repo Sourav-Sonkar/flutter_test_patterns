@@ -1,6 +1,6 @@
 name: flutter_test_patterns
-description: "A helper package providing a toolbox of widget testing patterns."
-version: 1.0.0
+description: "Pattern-based testing system for Flutter. Structured, reusable testing patterns that scale with your application."
+version: 1.1.0
 repository: https://github.com/Sourav-Sonkar/flutter_test_patterns
 issue_tracker: https://github.com/Sourav-Sonkar/flutter_test_patterns/issues
 environment:

@@ -1,7 +1,6 @@
 # Flutter Test Patterns
 
 [![Pub Version](https://img.shields.io/pub/v/flutter_test_patterns)](https://pub.dev/packages/flutter_test_patterns)
-[![Agent Skill](https://img.shields.io/badge/Agent%20Skill-SKILL.md-blue)](https://skillsmp.com)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/Sourav-Sonkar/flutter_test_patterns/pulls)
 [![Flutter](https://img.shields.io/badge/Flutter-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
@@ -9,34 +8,65 @@
 [![Testing](https://img.shields.io/badge/Testing-Widget%20Tests-02569B)](https://flutter.dev/testing)
 [![Golden Tests](https://img.shields.io/badge/Golden-Tests-FFD700)](https://flutter.dev/testing#golden-tests)
 
-A toolbox of common, senior-level widget testing patterns for Flutter.
+**Pattern-based testing system for Flutter**
 
-This package provides **opt-in** helpers to reduce boilerplate in your tests. It is **NOT** a testing framework. It does not impose a specific architecture or base class.
+Structured, reusable testing patterns that scale with your application.
 
-## Philosophy
+---
 
-- **Explicit is better than implicit.** Helpers should not hide what they are doing.
-- **Composition over inheritance.** No `BaseTest` classes.
-- **Isolation.** State should not leak between tests or variants.
+## The Problem
 
-## Patterns
+Flutter tests become unmanageable at scale:
 
-| Pattern | Purpose |
-| :--- | :--- |
-| [**Golden Variants**](doc/patterns/golden_variants.md) | Generate multiple visual variants (primary, hover, disabled) in a single test block with deterministic output. |
-| [**Interaction Contracts**](doc/patterns/interaction_contracts.md) | Define and enforce reusable behavioral contracts (e.g., "tappable", "validates on blur"). |
-| [**State Matrix**](doc/patterns/state_matrix.md) | Ensure a widget behaves correctly across all defined states (loading, error, data, empty). |
+- **Repetitive boilerplate** in widget and golden tests
+- **Inconsistent structure** across teams and files
+- **Missing edge cases** and incomplete state coverage
+- **Hard-to-maintain** test suites that resist refactoring
 
-## Installation
+Writing tests manually works for small apps, but it breaks down as codebases grow. Teams end up with fragmented testing practices, inconsistent coverage, and suites that are expensive to maintain.
 
-```yaml
-dev_dependencies:
-  flutter_test_patterns:
-    path: . # Local path or git url
+---
+
+## The Solution
+
+**Pattern-based testing.**
+
+Instead of writing tests from scratch each time, use codified, reusable patterns that enforce consistency and completeness.
+
+These patterns were developed while building a large-scale design system at Tata Neu, where maintaining consistent test coverage across hundreds of components was a critical challenge.
+
+This package is not a collection of helpers—it's a systematic approach to Flutter testing.
+
+---
+
+## Core Patterns
+
+### Golden Variants
+
+Generate multiple visual states (primary, hover, disabled, error) in a single test block with deterministic file naming.
+
+**Before:**
+```dart
+testWidgets('Button primary', (tester) async {
+  await tester.pumpWidget(Button.primary());
+  await expectLater(
+    find.byType(Button),
+    matchesGoldenFile('button.primary.png'),
+  );
+});
+
+testWidgets('Button disabled', (tester) async {
+  await tester.pumpWidget(Button.disabled());
+  await expectLater(
+    find.byType(Button),
+    matchesGoldenFile('button.disabled.png'),
+  );
+});
+
+// Repeat for every variant...
 ```
 
-## Quick Example (Golden Variants)
-
+**After:**
 ```dart
 testWidgets('Button variants', (tester) async {
   await goldenVariants(
@@ -45,26 +75,152 @@ testWidgets('Button variants', (tester) async {
     variants: {
       'primary': () => Button.primary(),
       'disabled': () => Button.disabled(),
+      'hover': () => Button.primary(isHovered: true),
     },
   );
 });
 ```
 
-See [doc/patterns/](doc/patterns/) for detailed guides on each pattern.
+### State Matrix
 
-## Contributing
+Test all UI states (loading, error, data, empty) in a structured matrix to ensure complete coverage.
 
-Contributions are welcome! Please feel free to open an issue or submit a PR.
+**Before:**
+```dart
+testWidgets('DataCard loading', (tester) async {
+  await tester.pumpWidget(DataCard(state: LoadingState()));
+  expect(find.byType(CircularProgressIndicator), findsOneWidget);
+});
 
-## AI Agent Skill
+testWidgets('DataCard error', (tester) async {
+  await tester.pumpWidget(DataCard(state: ErrorState('Failed')));
+  expect(find.text('Failed'), findsOneWidget);
+});
 
-Use `flutter_test_patterns` directly inside Claude Code, Cursor, GitHub Copilot, Windsurf, and 39+ AI agents:
+// Easy to miss states, inconsistent structure...
+```
+
+**After:**
+```dart
+testWidgets('DataCard state matrix', (tester) async {
+  await stateMatrix(
+    tester,
+    DataCard,
+    states: {
+      'loading': () => DataCard(state: LoadingState()),
+      'error': () => DataCard(state: ErrorState('Failed')),
+      'data': () => DataCard(state: DataState(User(name: 'John'))),
+      'empty': () => DataCard(state: EmptyState()),
+    },
+    assertions: (state, widget) {
+      switch (state) {
+        case 'loading':
+          expect(find.byType(CircularProgressIndicator), findsOneWidget);
+          break;
+        case 'error':
+          expect(find.text('Failed'), findsOneWidget);
+          break;
+        // ...
+      }
+    },
+  );
+});
+```
+
+### Interaction Contracts
+
+Define reusable behavioral rules (tappable, validates on blur, scrolls) and apply them consistently.
+
+**Before:**
+```dart
+testWidgets('Button is tappable', (tester) async {
+  bool tapped = false;
+  await tester.pumpWidget(Button(
+    onTap: () => tapped = true,
+  ));
+  await tester.tap(find.byType(Button));
+  expect(tapped, true);
+});
+
+// Repeated across every tappable widget...
+```
+
+**After:**
+```dart
+testWidgets('Button interaction contract', (tester) async {
+  await tappableContract(
+    tester,
+    () => Button(onTap: () {}),
+  );
+});
+```
+
+---
+
+## Benefits
+
+- **Eliminate boilerplate** - Write less code, test more
+- **Consistent structure** - Every test follows the same pattern
+- **Complete coverage** - Patterns enforce edge case testing
+- **Scalable** - Works for small apps and large design systems
+- **No framework lock-in** - Opt-in patterns, no base classes required
+- **Deterministic golden tests** - Predictable file naming, no flakiness
+
+---
+
+## AI Integration
+
+This package includes an AI agent skill for code generation tools (Claude Code, Cursor, GitHub Copilot, Windsurf, and others).
 
 ```bash
 npx skills add Sourav-Sonkar/flutter_test_patterns
 ```
 
-Then just ask your AI: *"Write widget tests for this Flutter component"*
+The AI generates tests using these patterns, ensuring consistency even when using AI assistance.
+
+---
+
+## Getting Started
+
+Add to your `pubspec.yaml`:
+
+```yaml
+dev_dependencies:
+  flutter_test_patterns: ^latest_version
+```
+
+Import and use patterns in your tests:
+
+```dart
+import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_test_patterns/flutter_test_patterns.dart';
+
+void main() {
+  testWidgets('My component variants', (tester) async {
+    await goldenVariants(
+      tester,
+      'my_component',
+      variants: {
+        'default': () => MyComponent(),
+        'active': () => MyComponent(active: true),
+      },
+    );
+  });
+}
+```
+
+See [doc/patterns/](doc/patterns/) for detailed documentation.
+
+---
+
+## Who Is This For?
+
+- **Teams building design systems** - Enforce consistent testing patterns across components
+- **Large Flutter applications** - Scale test coverage without scaling boilerplate
+- **Projects with golden tests** - Manage visual regression testing systematically
+- **Teams prioritizing quality** - Ensure complete state and interaction coverage
+
+---
 
 ## License
 
